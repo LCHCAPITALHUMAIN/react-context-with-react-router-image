@@ -1,64 +1,11 @@
 import React, { useState } from "react";
 import { ContextData } from "../App";
 import { useNavigate } from "react-router-dom";
-
-/**
- * Small helper function that allows us to use
- * Async/Await for cleaner more readable code
- * @param {File} file
- */
-function readFileAsync(file) {
-  return new Promise((resolve, reject) => {
-    let fr = new FileReader();
-    fr.onload = () => {
-      resolve(fr.result);
-    };
-    fr.onerror = reject;
-    fr.readAsDataURL(file);
-  });
-}
-
-function resizeImage(base64Str, maxWidth = 320, maxHeight = 320) {
-  return new Promise((resolve) => {
-    let img = new Image();
-    img.src = base64Str;
-    img.onload = () => {
-      let canvas = document.createElement("canvas");
-      const MAX_WIDTH = maxWidth;
-      const MAX_HEIGHT = maxHeight;
-      let width = img.width;
-      let height = img.height;
-      let shouldResize = false;
-
-      if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-          shouldResize = true;
-        }
-      } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-          shouldResize = true;
-        }
-      }
-      if (shouldResize) {
-        canvas.width = width;
-        canvas.height = height;
-        let ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", 0.9));
-      } else {
-        resolve(base64Str);
-      }
-    };
-  });
-}
+import { readFileAsync , resizeImage} from '../utils';
 const Home = () => {
   const data = React.useContext(ContextData);
   const navigate = useNavigate();
-  const handleClick = () => navigate("/about");
+  const handleClick = () => navigate("/remove-background");
 
   const handleImageChange = async ({ currentTarget: { files } }) => {
     data.setmodal(true);

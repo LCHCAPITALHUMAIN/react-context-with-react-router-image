@@ -2286,7 +2286,7 @@ footer .copyright {
 }
 
 .uploaded-result_image img {
-  max-height: 400px;
+  max-height: 320px;
 }
 
 .uploaded-result_actions {
@@ -2681,6 +2681,7 @@ footer .copyright {
   overflow: hidden;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 .uploaded-result_image img {
   max-height: 400px;

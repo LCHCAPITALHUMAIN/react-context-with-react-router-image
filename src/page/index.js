@@ -1,5 +1,5 @@
 import Home from "./Home";
-import About from "./About";
+import RemoveBackground from "./RemoveBackground";
 import Users from "./User";
 
-export { Home, About, Users };
+export { Home, RemoveBackground, Users };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { Home, About, Users } from "./page/";
+import { Home, RemoveBackground, Users } from "./page/";
 import axios from "axios";
 import "./styles.css";
 import { ResponseAPI } from "./api";
@@ -75,7 +75,7 @@ export default function App() {
         </Modal>
         <Routes>
           <Route
-            path="/about"
+            path="/remove-background"
             element={
               <ContextData.Provider
                 value={{
@@ -91,7 +91,7 @@ export default function App() {
                   file
                 }}
               >
-                <About />
+                <RemoveBackground />
               </ContextData.Provider>
             }
           />
