@@ -124,6 +124,7 @@ export default function App() {
 */
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate as useHistory } from "react-router-dom";
+import axios from "axios";
 
 function Processing() {
   const [previewImage, setPreviewImage] = useState(null);
@@ -140,11 +141,12 @@ function Processing() {
         setPreviewImage(URL.createObjectURL(image)); // Perform the API call
     setIsLoading(true);
     const data = new FormData();
-    data.append("file", image);
+    // data.append("file", image);
+    data.append("image", image, image.name);
     axios
-      .post("https://inpixio-remove-bg-zceht2uy2q-ey.a.run.app/api/upload", data)
+      .post("https://inpixio-remove-bg-zceht2uy2q-uc.a.run.app/image/remove_bg/", data)
       .then((response) => {
-        setReceivedImage(response.data.url);
+        setReceivedImage("data:image/png;base64," +response.data.image);
       })
       .catch((error) => {
         setError(error.message);
@@ -163,7 +165,9 @@ function Processing() {
   };
   const handleBuy = () => {
     // Perform any necessary actions for purchasing the image, such as sending a request to a payment gateway // and updating the user's account //...
-    history.push("/cart", { image: receivedImage });
+    history('/cart',
+    { state: { image: receivedImage }}
+    );
   };
   return (
     <div>
