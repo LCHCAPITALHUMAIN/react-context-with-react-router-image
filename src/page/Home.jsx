@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import { ContextData } from "../App";
 import { useNavigate } from "react-router-dom";
 import { readFileAsync , resizeImage} from '../utils';
@@ -167,4 +167,59 @@ const Home = () => {
     </main>
   );
 };
+export default Home;
+
+*/
+import React, {
+  useState
+} from 'react';
+import {
+  useNavigate as useHistory
+} from 'react-router-dom';
+
+
+function Home() {
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const history = useHistory();
+  const handleUpload = async e => {
+    setError(null); // Reset any previous errors
+    setIsSubmitting(true); // Show the loading spinner 
+    const file = e.target.files[0];
+    try {
+      if (!file) {
+        setError("Please select an image");
+      } else if (!file.type.startsWith("image")) {
+        setError("Invalid file type. Please select an image file");
+      } else if (file.size > 5000000) {
+        setError("File is too large. Please select an image smaller than 5MB");
+      } else {
+        setImage(file); // Navigate to the processing route
+        history('/remove-background',
+        { state: { image: file}}
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      setError("An error occurred while uploading the image");
+    } finally {
+      setIsSubmitting(false); // Hide the loading spinner 
+    }
+  };
+  const Spinner = (animation = 1, variant = "2") => {
+    return (<div>Loading</div>);
+  }
+  return (<div> <input type="file"
+    onChange={
+      handleUpload
+    }
+    disabled={
+      isSubmitting
+    }
+  /> {
+      error && < p className="error" > {
+        error
+      } </p>} {isSubmitting && (<div className="overlay"><Spinner animation="border" variant="light" /> </div>)}</div >);
+}
 export default Home;
