@@ -178,6 +178,16 @@ export default function RemoveBackground() {
         </div>
       </div>
       <canvas ref={canvasRef} />
-    </main>
+      {" "}
+      {error && <p className="error">{error}</p>}
+      {isLoading && <p>Loading...</p>}
+      {receivedImage && (
+        <div>
+          <img src={receivedImage} alt="Received" width={200} height={200} />
+          <button onClick={handleDownload}>Download</button>
+          <button onClick={handleBuy}>Buy</button>{" "}
+        </div>
+      )}
+      {previewImage && <img src={previewImage} alt="Preview" />}main>
   );
 }

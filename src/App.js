@@ -128,7 +128,7 @@ import Home from './page/Home';
 import Processing from './page/Processing';
 import Cart from './page/Cart';
 import NotFound from './page/NotFound';
-
+import "./styles.css";
 function App() {
   return (
   <Router> 
