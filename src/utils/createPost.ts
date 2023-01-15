@@ -1,9 +1,14 @@
 import { client, ResponseAPI } from "../api/client";
 
-export const createPost = async (file): Promise<ResponseAPI> => {
-  const fd = new FormData();
-  fd.append("image", file, file.name);
-  const { data } = await client.post("", fd);
-  console.log(data);
-  return data.image;
+export const createPost = (file: File): Promise<any> => {
+  return new Promise( (resolve, reject) => {
+    try {
+      const fd = new FormData();
+      fd.append("image", file, file.name);
+      const  data  =  client.post("", fd);
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };

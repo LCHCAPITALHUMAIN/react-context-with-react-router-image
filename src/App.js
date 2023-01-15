@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { Home, About, Users } from "./page/";
+import { Home, RemoveBackground, Users } from "./page/";
 import axios from "axios";
 import "./styles.css";
 import { ResponseAPI } from "./api";
@@ -75,7 +75,7 @@ export default function App() {
         </Modal>
         <Routes>
           <Route
-            path="/about"
+            path="/remove-background"
             element={
               <ContextData.Provider
                 value={{
@@ -91,7 +91,7 @@ export default function App() {
                   file
                 }}
               >
-                <About />
+                <RemoveBackground />
               </ContextData.Provider>
             }
           />
@@ -121,3 +121,24 @@ export default function App() {
     </BrowserRouter>
   );
 }
+*/
+import React from 'react';
+import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
+import Home from './page/Home';
+import Processing from './page/Processing';
+import Cart from './page/Cart';
+import NotFound from './page/NotFound';
+import "./styles.css";
+function App() {
+  return (
+  <Router> 
+    <Switch> 
+      <Route path="/" element={<Home />} /> 
+      <Route path="/remove-background"  element={<Processing />} />
+      <Route path="/cart"  element={<Cart />} /> 
+      <Route element={NotFound} />
+    </Switch> 
+  </Router>);
+} 
+
+export default App;

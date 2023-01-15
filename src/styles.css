@@ -2286,7 +2286,7 @@ footer .copyright {
 }
 
 .uploaded-result_image img {
-  max-height: 400px;
+  max-height: 320px;
 }
 
 .uploaded-result_actions {
@@ -2681,6 +2681,7 @@ footer .copyright {
   overflow: hidden;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 .uploaded-result_image img {
   max-height: 400px;
@@ -2804,47 +2805,8 @@ footer .copyright {
 .upload-loading .loading-spinner {
   display: block;
 }
-
+z-index: 1000;
 .upload-loading .uploaded-result_image img,
 .upload-loading .uploaded-result_actions {
   opacity: .4;
-}
-
-.dragover-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 30px;
-  display: none;
-}
-
-.drag-active .dragover-overlay {
-  display: block;
-}
-
-.dragover-overlay_wrap {
-  background: #212F45;
-  padding: 40px;
-  border-radius: 24px;
-  height: 100%;
-}
-
-.dragover-overlay_inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #fff;
-  height: 100%;
-  text-align: center;
-  border-radius: 24px;
-  font-size: 30px;
-  line-height: 60px;
-}
-
-.dragover-overlay_inner .label {
-  padding-top: 20px;
-  font-weight: 500;
 }

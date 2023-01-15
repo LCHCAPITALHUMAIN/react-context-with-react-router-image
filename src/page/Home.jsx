@@ -1,82 +1,48 @@
-import React, { useState } from "react";
-import { ContextData } from "../App";
-import { useNavigate } from "react-router-dom";
+import React, {
+  useState
+} from 'react';
+import {
+  useNavigate as useHistory
+} from 'react-router-dom';
 
-/**
- * Small helper function that allows us to use
- * Async/Await for cleaner more readable code
- * @param {File} file
- */
-function readFileAsync(file) {
-  return new Promise((resolve, reject) => {
-    let fr = new FileReader();
-    fr.onload = () => {
-      resolve(fr.result);
-    };
-    fr.onerror = reject;
-    fr.readAsDataURL(file);
-  });
-}
 
-function resizeImage(base64Str, maxWidth = 320, maxHeight = 320) {
-  return new Promise((resolve) => {
-    let img = new Image();
-    img.src = base64Str;
-    img.onload = () => {
-      let canvas = document.createElement("canvas");
-      const MAX_WIDTH = maxWidth;
-      const MAX_HEIGHT = maxHeight;
-      let width = img.width;
-      let height = img.height;
-      let shouldResize = false;
-
-      if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-          shouldResize = true;
-        }
+function Home() {
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const history = useHistory();
+  const handleUpload = async e => {
+    setError(null); // Reset any previous errors
+    setIsSubmitting(true); // Show the loading spinner 
+    const file = e.target.files[0];
+    try {
+      if (!file) {
+        setError("Please select an image");
+      } else if (!file.type.startsWith("image")) {
+        setError("Invalid file type. Please select an image file");
+      } else if (file.size > 5000000) {
+        setError("File is too large. Please select an image smaller than 5MB");
       } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-          shouldResize = true;
-        }
+        setImage(file); // Navigate to the processing route
+        history('/remove-background',
+        { state: { image: file}}
+        );
       }
-      if (shouldResize) {
-        canvas.width = width;
-        canvas.height = height;
-        let ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", 0.9));
-      } else {
-        resolve(base64Str);
-      }
-    };
-  });
-}
-const Home = () => {
-  const data = React.useContext(ContextData);
-  const navigate = useNavigate();
-  const handleClick = () => navigate("/about");
-
-  const handleImageChange = async ({ currentTarget: { files } }) => {
-    data.setmodal(true);
-    if (files && files.length) {
-      data.addToStack(files[0]);
-      const result = await readFileAsync(files[0]);
-      const resizedImage = await resizeImage(result);
-      data.addToCart(resizedImage);
-      data.setNav(1);
-      handleClick();
+    } catch (error) {
+      console.log(error);
+      setError("An error occurred while uploading the image");
+    } finally {
+      setIsSubmitting(false); // Hide the loading spinner 
     }
   };
-  return (
-    <main id="page">
+  const Spinner = (animation = 1, variant = "2") => {
+    return (<div>Loading</div>);
+  }
+  return (<div>  <main id="page">
       <div className="container v2 container-main flex">
         <div className="page-col_left">
           <h1>
-            The <span>#1</span>​ One-Click​ Background Remover​
+            The <span>#1</span>  One-Click  Background Remover 
           </h1>
           <img
             src="https://www.inpixio.com/remove-background/images/new/example.png"
@@ -140,10 +106,11 @@ const Home = () => {
                     <label className="upload__button">
                       <b className="plus"></b>
                       <span>UPLOAD YOUR PHOTO</span>
-                      <input
-                        type="file"
-                        className="file-choose"
-                        onChange={handleImageChange}
+                     
+                      <input type="file"
+                             className="file-choose" 
+                            onChange={ handleUpload }
+                            disabled={ isSubmitting }
                       />
                     </label>
                   </div>
@@ -218,6 +185,8 @@ const Home = () => {
         </div>
       </div>
     </main>
-  );
-};
+       { error && < p className="error" > {
+        error
+      } </p>} {isSubmitting && (<div className="overlay"><Spinner animation="border" variant="light" /> </div>)}</div >);
+}
 export default Home;
