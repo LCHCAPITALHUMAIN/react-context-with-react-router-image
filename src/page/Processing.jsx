@@ -359,18 +359,28 @@ function Processing() {
         <div>Loading</div>
       </Modal>
 
-      <div
-        className={`dragover-overlay ${isOverlayVisible == 1 ? 'over' : 'hide'}`}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={() => setIsOverlayVisible(false)}
-        onDragEnter={handleDragEnter}
-        style={styles.dragover}
-      >
-        Drop your files here
-      </div>
-
-      <main id="page">
+ 
+      <div className={`dragover-overlay ${isOverlayVisible == 1 ? 'over' : 'hide'}`}
+       onDrop={handleDrop}
+       onDragOver={handleDragOver}
+       onDragLeave={() => setIsOverlayVisible(false)}
+       onDragEnter={handleDragEnter}
+       style={styles.dragover}>
+        <div className="dragover-overlay_wrap">
+          <div className="dragover-overlay_inner">
+            <img
+              src="https://www.inpixio.com/rb-tool/assets/img/icon-file.svg"
+              width="100"
+              height="125"
+              alt="Add  Icon"
+            />
+            <h4 className="label">
+              Drop one image <br />
+              anywhere in the screen
+            </h4>
+          </div>
+        </div>
+      </div>   <main id="page">
         <div className="upload-another">
           <label className="upload__button">
             <b className="plus"></b>
