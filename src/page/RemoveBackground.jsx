@@ -112,7 +112,7 @@ export default function RemoveBackground() {
       <div className="container v2 container-main flex uploaded-container">
         <div className="page-col_left">
           <h1>
-            The <span>#1</span> One-Click​ Background Remover
+            The <span>#1</span> One-Click  Background Remover
           </h1>
         </div>
         <div className="page-col_right">

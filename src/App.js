@@ -139,4 +139,6 @@ function App() {
       <Route element={NotFound} />
     </Switch> 
   </Router>);
-} export default App;
+} 
+
+export default App;

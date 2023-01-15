@@ -2,16 +2,15 @@ export const resizeImage = (base64Str: string, maxWidth = 320, maxHeight = 320) 
     return new Promise((resolve) => {
       // console.log(base64Str);
       
-      let img = new Image();
+      const img = new Image();
       img.src = base64Str;
       img.onload = () => {
-        let canvas = document.createElement("canvas");
+        const canvas = document.createElement("canvas");
         const MAX_WIDTH = maxWidth;
         const MAX_HEIGHT = maxHeight;
         let width = img.width;
         let height = img.height;
         let shouldResize = false;
-        console.log({width:img.width,height:img.height});
         if (width > height) {
           if (width > MAX_WIDTH) {
             height *= MAX_WIDTH / width;
@@ -28,7 +27,7 @@ export const resizeImage = (base64Str: string, maxWidth = 320, maxHeight = 320) 
         if (shouldResize) {
           canvas.width = width;
           canvas.height = height;
-          let ctx = canvas.getContext("2d");
+          const ctx = canvas.getContext("2d");
           if(ctx !== null){
             ctx.drawImage(img, 0, 0, width, height);
           }

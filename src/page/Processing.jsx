@@ -124,7 +124,6 @@ export default function App() {
 */
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate as useHistory } from "react-router-dom";
-import axios from "axios";
 import Modal from "./Modal";
 import './RemoveBackground.css'
 import { createPost } from "../utils"; 
@@ -168,7 +167,7 @@ function Processing() {
       .then( (response) => {
        // setPreviewImage(null); 
        // setReceivedImage("data:image/png;base64," + response.data.image);
-       setPreviewImage("data:image/png;base64," + response);
+       setPreviewImage("data:image/png;base64," + response.data.image);
       })
       .catch((error) => {
         setError(error.message);
@@ -244,8 +243,8 @@ function Processing() {
       setmodalIsOpen(true);
       createPost(location.state.image)
         .then((response) => {
-          setReceivedImage("data:image/png;base64," + response);
-          setPreviewImage("data:image/png;base64," + response);
+          setReceivedImage("data:image/png;base64," + response.data.image);
+          setPreviewImage("data:image/png;base64," + response.data.image);
         })
         .catch((error) => {
           setError(error.message);
@@ -308,8 +307,8 @@ function Processing() {
         setIsLoading(true);
         createPost(file)
           .then((response) => {
-            setReceivedImage("data:image/png;base64," + response);
-            setPreviewImage("data:image/png;base64," + response);
+            setReceivedImage("data:image/png;base64," + response.data.image);
+            setPreviewImage("data:image/png;base64," + response.data.image);
           })
           .catch((error) => {
             setError(error.message);
@@ -397,7 +396,7 @@ function Processing() {
         <div className="container v2 container-main flex uploaded-container">
           <div className="page-col_left">
             <h1>
-              The <span>#1</span> One-Click​ Background Remover {isLoading}
+              The <span>#1</span> One-Click  Background Remover {isLoading}
             </h1>
           </div>
           <div className="page-col_right">
@@ -423,19 +422,9 @@ function Processing() {
                   <small>Preview Image Low resolution</small>
                 </div>
                 <div className="uploaded-result_actions-block">
-                  <a
-                    href="https://store.inpixio.com/clickgate/join.aspx?ref=inpixio.upclick.com%2F1&ujid=R8bije3CCAU%3D"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(event) => {
-                      if (isLoading) {
-                        event.preventDefault();
-                      }
-                    }}
-                    className={isLoading ? 'result-btn outline' : 'result-btn outline'}
-                  >
+                <button className="result-btn outline" onClick={handleBuy}>
                     Download HD
-                  </a>
+                  </button>
                   <small>Full resolution image 2572 × 2248 pixels</small>
                 </div>
               </div>

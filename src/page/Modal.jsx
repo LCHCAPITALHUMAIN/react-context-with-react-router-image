@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./Modal.css";
 import Auxiliary from "./Auxiliary";
 import Backdrop from "./Backdrop";
@@ -15,5 +16,5 @@ const Modal = (props) => (
     ></div>
   </Auxiliary>
 );
-
+ 
 export default Modal;
